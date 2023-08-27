@@ -8,11 +8,13 @@ let saldo = {
   saldoAtual: 5000.00,
   historicoTransacoes: [
     {
+      id: 1,
       data: "2023-08-26",
       descricao: "Crédito",
       valor: 1000.00
     },
     {
+      id: 2,
       data: "2023-08-27",
       descricao: "Débito",
       valor: -300.00
@@ -27,18 +29,21 @@ app.get('/consultaSaldo', (req, res) => {
 });
 
 app.post('/atualizaSaldo', (req, res) => {
-  const { descricao, valor } = req.body
+  const { descricao, valor } = req.body;
 
-  saldo.historicoTransacoes.push({
+  const novaTransacao = {
+    id: saldo.historicoTransacoes.length + 1,
     data: new Date().toISOString(),
     descricao: descricao,
     valor: valor
-  });
+  };
 
+  saldo.historicoTransacoes.push(novaTransacao);
   saldo.saldoAtual += valor;
 
-  res.json({ message: "Saldo atualizado com sucesso.", saldo: saldo });
+  res.json({ message: "Saldo atualizado com sucesso.", novaTransacao: novaTransacao, saldo: saldo });
 });
+
 
 app.put('/atualizaNomeTitular', (req, res) => {
   const { novoNome } = req.body;
