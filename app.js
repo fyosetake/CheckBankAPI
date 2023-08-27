@@ -40,6 +40,14 @@ app.post('/atualizaSaldo', (req, res) => {
   res.json({ message: "Saldo atualizado com sucesso.", saldo: saldo });
 });
 
+app.put('/atualizaNomeTitular', (req, res) => {
+  const { novoNome } = req.body;
+
+  saldo.nome = novoNome;
+
+  res.json({ message: "Nome do titular atualizado com sucesso.", novoNome: novoNome });
+});
+
 app.listen(port, () => {
   console.log(`API rodando em http://localhost:${port}`);
 });
