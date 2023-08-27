@@ -53,6 +53,21 @@ app.put('/atualizaNomeTitular', (req, res) => {
   res.json({ message: "Nome do titular atualizado com sucesso.", novoNome: novoNome });
 });
 
+app.delete('/excluirTransacao/:id', (req, res) => {
+  const idTransacao = parseInt(req.params.id);
+
+  const transacaoExcluida = saldo.historicoTransacoes.find(transacao => transacao.id === idTransacao);
+
+  if (!transacaoExcluida) {
+    return res.json({ message: 'Transação não encontrada.' });
+  }
+
+  saldo.saldoAtual -= transacaoExcluida.valor;
+  saldo.historicoTransacoes = saldo.historicoTransacoes.filter(transacao => transacao.id !== idTransacao);
+
+  res.json({ message: 'Transação excluída com sucesso.' });
+});
+
 app.listen(port, () => {
   console.log(`API rodando em http://localhost:${port}`);
 });
