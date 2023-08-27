@@ -25,7 +25,7 @@ let saldo = {
 app.use(express.json());
 
 app.get('/consultaSaldo', (req, res) => {
-  res.json(saldo);
+  res.status(200).json({ status: "success", saldo });
 });
 
 app.post('/atualizaSaldo', (req, res) => {
@@ -41,16 +41,15 @@ app.post('/atualizaSaldo', (req, res) => {
   saldo.historicoTransacoes.push(novaTransacao);
   saldo.saldoAtual += valor;
 
-  res.json({ message: "Saldo atualizado com sucesso.", novaTransacao: novaTransacao, saldo: saldo });
+  res.status(201).json({ status: "success", message: "Saldo atualizado com sucesso.", novaTransacao: novaTransacao, saldo: saldo });
 });
-
 
 app.put('/atualizaNomeTitular', (req, res) => {
   const { novoNome } = req.body;
 
   saldo.nome = novoNome;
 
-  res.json({ message: "Nome do titular atualizado com sucesso.", novoNome: novoNome });
+  res.status(200).json({ status: "success", message: "Nome do titular atualizado com sucesso.", novoNome: novoNome });
 });
 
 app.delete('/excluirTransacao/:id', (req, res) => {
@@ -59,13 +58,13 @@ app.delete('/excluirTransacao/:id', (req, res) => {
   const transacaoExcluida = saldo.historicoTransacoes.find(transacao => transacao.id === idTransacao);
 
   if (!transacaoExcluida) {
-    return res.json({ message: 'Transação não encontrada.' });
+    return res.status(404).json({ status: "error", message: 'Transação não encontrada.' });
   }
 
   saldo.saldoAtual -= transacaoExcluida.valor;
   saldo.historicoTransacoes = saldo.historicoTransacoes.filter(transacao => transacao.id !== idTransacao);
 
-  res.json({ message: 'Transação excluída com sucesso.' });
+  res.status(200).json({ status: "success", message: 'Transação excluída com sucesso.' });
 });
 
 app.listen(port, () => {
