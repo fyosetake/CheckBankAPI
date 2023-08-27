@@ -26,6 +26,20 @@ app.get('/consultaSaldo', (req, res) => {
   res.json(saldo);
 });
 
+app.post('/atualizaSaldo', (req, res) => {
+  const { descricao, valor } = req.body
+
+  saldo.historicoTransacoes.push({
+    data: new Date().toISOString(),
+    descricao: descricao,
+    valor: valor
+  });
+
+  saldo.saldoAtual += valor;
+
+  res.json({ message: "Saldo atualizado com sucesso.", saldo: saldo });
+});
+
 app.listen(port, () => {
   console.log(`API rodando em http://localhost:${port}`);
 });
