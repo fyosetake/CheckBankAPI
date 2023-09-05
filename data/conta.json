@@ -1,0 +1,31 @@
+{
+  "nome": "Francine Yosetake",
+  "numeroConta": "90.890-900",
+  "saldoAtual": 3600,
+  "historicoTransacoes": [
+    {
+      "id": 1,
+      "data": "2023-08-26",
+      "descricao": "Crédito",
+      "valor": 1000
+    },
+    {
+      "id": 2,
+      "data": "2023-09-05T20:45:48.354Z",
+      "descricao": "Crédito",
+      "valor": 900
+    },
+    {
+      "id": 3,
+      "data": "2023-09-05T20:46:30.023Z",
+      "descricao": "Crédito",
+      "valor": 900
+    },
+    {
+      "id": 4,
+      "data": "2023-09-05T20:47:15.377Z",
+      "descricao": "Crédito",
+      "valor": 800
+    }
+  ]
+}
