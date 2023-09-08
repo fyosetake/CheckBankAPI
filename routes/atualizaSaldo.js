@@ -14,15 +14,19 @@ router.post('/', (req, res) => {
       descricao: descricao,
       valor: valor
     };
-  
+
     saldo.historicoTransacoes.push(novaTransacao);
     saldo.saldoAtual += valor;
 
-    console.log(saldo.saldoAtual);
+    try {
 
-    fs.writeFileSync('./data/conta.json', JSON.stringify(saldo, null, 2), 'utf-8');
-  
-    res.status(201).json({ status: "success", message: "Saldo atualizado com sucesso.", novaTransacao: novaTransacao, saldo: saldo });
+      fs.writeFileSync('./data/conta.json', JSON.stringify(saldo, null, 2), 'utf-8');
+
+      res.status(201).json({ status: "success", message: "Saldo atualizado com sucesso.", novaTransacao: novaTransacao, saldo: saldo });
+
+    } catch (error) {
+      throw new Error("Não foi possível atualizar o saldo", error.message);
+    }
 });
 
 module.exports = router;
