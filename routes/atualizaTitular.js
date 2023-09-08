@@ -5,7 +5,7 @@ const fs = require('fs');
 const contaJson = fs.readFileSync('./data/conta.json', 'utf-8');
 const saldo = JSON.parse(contaJson);
 
-router.post('/', (req, res) => {
+router.put('/', (req, res) => {
     const { novoNome } = req.body;
   
     saldo.nome = novoNome;
