@@ -10,9 +10,15 @@ router.post('/', (req, res) => {
   
     saldo.nome = novoNome;
 
-    fs.writeFileSync('./data/conta.json', JSON.stringify(saldo, null, 2), 'utf-8');
-  
-    res.status(200).json({ status: "success", message: "Nome do titular atualizado com sucesso.", novoNome: novoNome });
+    try {
+
+      fs.writeFileSync('./data/conta.json', JSON.stringify(saldo, null, 2), 'utf-8');
+
+      res.status(200).json({ status: "success", message: "Nome do titular atualizado com sucesso.", novoNome: novoNome });
+
+    } catch (error) {
+      throw new Error("Não foi possível atualizar o nome do Titular", error.message);
+    }
   });
 
   module.exports = router;
